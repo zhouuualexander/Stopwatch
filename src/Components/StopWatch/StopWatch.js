@@ -23,23 +23,31 @@ const theme = createTheme({
 });
 
 const StopWatch = () => {
+
     const [isStart, setIsStart] = useState(false);
+    const [isReset, setIsReset] = useState(false);
     const [isStop, setIsStop] = useState(true);
     const [milliseconds, setMilliseconds] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const startHandler = () => {
         setIsStart(true);
         setIsStop(false);
+        setIsReset(false);
 
     };
     const stopHandler = () => {
         setIsStop(true);
+        setIsReset(false);
     };
     const resetHandler = () => {
+
         setIsStart(false);
         setIsStop(true);
+        setIsReset(true);
         setMilliseconds(0);
         setSeconds(0);
+
+
     };
     let leadingMillisecondsZero = "0";
     if (milliseconds > 9) {
@@ -51,14 +59,20 @@ const StopWatch = () => {
     }
     useEffect(
         () => {
+
             let intervalMilliseconds = null;
             let intervalSecond = null;
+            if (isReset === true) {
+                setMilliseconds(0);
+                setIsStart(false);
+            }
             if (isStart === true && isStop === false) {
                 intervalMilliseconds = setInterval(() => {
                     setMilliseconds((milliseconds) => {
                         if (milliseconds > 98) {
                             return (0);
                         }
+
                         return (milliseconds + 1);
                     });
                 }, 10);
@@ -68,6 +82,7 @@ const StopWatch = () => {
                     });
                 }, 1000);
             } else {
+
                 clearInterval(intervalMilliseconds);
                 clearInterval(intervalSecond);
             }
@@ -75,6 +90,7 @@ const StopWatch = () => {
 
                 clearInterval(intervalMilliseconds);
                 clearInterval(intervalSecond);
+
             };
         }, [isStart, isStop]
     );
