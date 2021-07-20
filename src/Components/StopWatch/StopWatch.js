@@ -17,8 +17,8 @@ theme = {
             },
             outlined: {
                 [theme.breakpoints.down("xs")]: {
-                    width: "50px",
-                    height: "30px"
+                    width: "90px",
+                    height: "50px"
                 },
                 border: "1px solid white;",
                 width: "150px",
@@ -113,7 +113,7 @@ const StopWatch = () => {
             <div >
                 <Container disableGutters={true} maxWidth={false}>
                     <Typography component="div" style={{ backgroundColor: '#a5c6ec', height: '100vh' }} align="center">
-                        <Typography align="center" component="div" style={{ paddingTop: "15%" }}>
+                        <Typography align="center" component="div" style={{ paddingTop: "25vh" }}>
                             <Typography {...typographyProps} align="center" style={{ color: "white", paddingTop: "1%" }}>STOPWATCH</Typography>
                             <Typography  {...typographyProps} style={{ color: "white", marginTop: "2%" }}>{`${leadingSecondsZero + seconds}:${leadingMillisecondsZero + milliseconds}`}</Typography>
                             <Typography component="div" align="center" style={{ color: "white", marginTop: "5%" }} >
