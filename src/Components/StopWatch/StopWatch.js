@@ -70,17 +70,14 @@ const StopWatch = () => {
                 intervalMilliseconds = setInterval(() => {
                     setMilliseconds((milliseconds) => {
                         if (milliseconds > 98) {
+                            setSeconds((seconds) => seconds + 1);
                             return (0);
                         }
 
                         return (milliseconds + 1);
                     });
                 }, 10);
-                intervalSecond = setInterval(() => {
-                    setSeconds((seconds) => {
-                        return (seconds + 1);
-                    });
-                }, 1000);
+
             } else {
 
                 clearInterval(intervalMilliseconds);
