@@ -3,16 +3,23 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Copyright from '../Copyright/Copyright';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-const theme = createTheme({
+let theme = createTheme({});
+theme = {
+    ...theme,
     overrides: {
         // Style sheet name ⚛️
         MuiButton: {
             root: {
                 color: "white",
-
             },
             outlined: {
+                [theme.breakpoints.down("xs")]: {
+                    width: "50px",
+                    height: "30px"
+                },
                 border: "1px solid white;",
                 width: "150px",
                 height: "70px"
@@ -20,10 +27,20 @@ const theme = createTheme({
         },
 
     },
-});
+};
+
 
 const StopWatch = () => {
+    const theme1 = useTheme();
+    const isSmallScreen = useMediaQuery(theme1.breakpoints.down("xs"));
+    const buttonProps = {
+        variant: isSmallScreen ? "outlined" : "outlined",
+        size: isSmallScreen ? "small" : "large"
+    };
+    const typographyProps = {
+        variant: isSmallScreen ? "h4" : "h2",
 
+    };
     const [isStart, setIsStart] = useState(false);
     const [isReset, setIsReset] = useState(false);
     const [isStop, setIsStop] = useState(true);
@@ -93,16 +110,16 @@ const StopWatch = () => {
     );
     return (
         <ThemeProvider theme={theme}>
-            <div>
+            <div >
                 <Container disableGutters={true} maxWidth={false}>
                     <Typography component="div" style={{ backgroundColor: '#a5c6ec', height: '100vh' }} align="center">
                         <Typography align="center" component="div" style={{ paddingTop: "15%" }}>
-                            <Typography variant="h2" align="center" style={{ color: "white", paddingTop: "1%" }}>STOPWATCH</Typography>
-                            <Typography variant="h2" style={{ color: "white", marginTop: "2%" }}>{`${leadingSecondsZero + seconds}:${leadingMillisecondsZero + milliseconds}`}</Typography>
+                            <Typography {...typographyProps} align="center" style={{ color: "white", paddingTop: "1%" }}>STOPWATCH</Typography>
+                            <Typography  {...typographyProps} style={{ color: "white", marginTop: "2%" }}>{`${leadingSecondsZero + seconds}:${leadingMillisecondsZero + milliseconds}`}</Typography>
                             <Typography component="div" align="center" style={{ color: "white", marginTop: "5%" }} >
-                                <Button variant="outlined" size="large" style={{ marginRight: "5%" }} onClick={startHandler}>Start</Button>
-                                <Button variant="outlined" size="large" style={{ marginRight: "5%" }} onClick={stopHandler}>Stop</Button>
-                                <Button variant="outlined" size="large" onClick={resetHandler}>Reset</Button>
+                                <Button {...buttonProps} style={{ marginRight: "5%" }} onClick={startHandler}>Start</Button>
+                                <Button {...buttonProps} style={{ marginRight: "5%" }} onClick={stopHandler}>Stop</Button>
+                                <Button {...buttonProps} onClick={resetHandler}>Reset</Button>
                             </Typography>
 
                         </Typography>
